@@ -1,0 +1,47 @@
+name: complex-workflows
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  job1:
+    name: Job 1 - runs on Ubuntu with latest version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step one - Add Actions
+        uses: actions/checkout@v2
+      - name: Step two - Print the date
+        run: date
+
+  job2:
+    name: Job 2 - runs on Windows with latest version
+    runs-on: windows-latest
+    steps:
+      - name: Step one - Add Actions
+        uses: actions/checkout@v2
+      - name: Step two - Print the date
+        run: Get-Date
+
+  job3:
+    name: Job 3 - runs on macOS with latest version
+    runs-on: macos-latest
+    steps:
+      - name: Step one - Add Actions
+        uses: actions/checkout@v2
+      - name: Step two - Print the date
+        run: date
+
+  job4:
+    name: Job 4 - runs on macOS with latest version and depends on job1, job2, and job3
+    needs: [job1, job2, job3]
+    runs-on: macos-latest
+    steps:
+      - name: Step one - Add Actions
+        uses: actions/checkout@v2
+      - name: Step two - Print the date
+        run: date
